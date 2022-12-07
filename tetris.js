@@ -15,7 +15,7 @@ class Tetris {
                     continue;
                 }
                 const realX = i + this.getTruncatedPosition().x
-                const realY = i + this.getTruncatedPosition().y
+                const realY = j + this.getTruncatedPosition().y
                 if (realY + 1 >= squareCountY) {
                     return false;
                 }
@@ -182,7 +182,15 @@ const drawCurrentTetris = () => {
 };
 
 const drawSquares = () => {
-
+    for (let i = 0; i < gameMap.length; i++) {
+        const t = gameMap[i];
+        for (let j = 0; j < t.length; j++) {
+            if (t[j].imageX === -1) {
+                continue;
+            }
+            ctx.drawImage(image, t[j].imageX, t[j].imageY, imageSquareSize, imageSquareSize, j * size, i * size, size, size);
+        }
+    }
 }
 
 const drawNextShape = () => {
