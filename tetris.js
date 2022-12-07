@@ -9,7 +9,26 @@ class Tetris {
     }
 
     checkBottom() {
+        for (let i = 0; i < this.template.length; i++) {
+            for (let j = 0; j < this.template.length; j++) {
+                if (this.template[i][j] === 0) {
+                    continue;
+                }
+                const realX = i + this.getTruncatedPosition().x
+                const realY = i + this.getTruncatedPosition().y
+                if (realY + 1 >= squareCountY) {
+                    return false;
+                }
+                if (gameMap[realY + 1][realX].imageX !== -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    getTruncatedPosition() {
+        return {x: Math.trunc(this.x), y: Math.trunc(this.y)};
     }
 
     checkLeft() {
@@ -104,7 +123,12 @@ const gameLoop = () => {
 };
 
 const update = () => {
-
+    if (gameOver) {
+        return;
+    }
+    if (currentShape.checkBottom()) {
+        currentShape.y += 1;
+    }
 };
 
 const drawRect = (x, y, width, height, color) => {
