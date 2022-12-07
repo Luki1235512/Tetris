@@ -32,23 +32,29 @@ class Tetris {
     }
 
     checkLeft() {
-
+        return true;
     }
 
     checkRight() {
-
+        return true;
     }
 
     moveRight() {
-
+        if (this.checkRight()) {
+            this.x += 1;
+        }
     }
 
     moveLeft() {
-
+        if (this.checkLeft()) {
+            this.x -= 1;
+        }
     }
 
     moveBottom() {
-
+        if (this.checkBottom()) {
+            this.y += 1;
+        }
     }
 
     changeRotation() {
@@ -227,6 +233,20 @@ const resetVars = () => {
     nextShape = getRandomShape();
     gameMap = initialTwoDArr;
 };
+
+window.addEventListener("keydown", (event) => {
+    const k = event.code
+        if (k === "KeyA" || k === "ArrowLeft") {
+            currentShape.moveLeft();
+        }
+        else if (k === "KeyD" || k === "ArrowRight") {
+            currentShape.moveRight();
+        }
+        else if (k === "KeyS" || k === "ArrowDown") {
+            currentShape.moveBottom();
+        }
+})
+
 
 resetVars();
 gameLoop();
