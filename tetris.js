@@ -129,6 +129,19 @@ const update = () => {
     if (currentShape.checkBottom()) {
         currentShape.y += 1;
     }
+    else {
+        for (let i = 0; i < currentShape.template.length; i++) {
+            for (let j = 0; j < currentShape.template.length; j++) {
+                if (currentShape.template[i][j] === 0) {
+                    continue;
+                }
+                gameMap[currentShape.getTruncatedPosition().y + j][currentShape.getTruncatedPosition().x + i]
+                    = {imageX: currentShape.imageX, imageY: currentShape.imageY};
+            }
+        }
+        currentShape = nextShape;
+        nextShape = getRandomShape();
+    }
 };
 
 const drawRect = (x, y, width, height, color) => {
