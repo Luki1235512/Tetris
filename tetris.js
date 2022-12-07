@@ -4,6 +4,8 @@ class Tetris {
         this.imageX = imageX;
         this.imageY = imageY;
         this.template = template;
+        this.x = squareCountX / 2;
+        this.y = 0;
     }
 
     checkBottom() {
@@ -121,6 +123,35 @@ const drawBackground = () => {
     }
 };
 
+const drawCurrentTetris = () => {
+    for (let i = 0; i < currentShape.template.length; i++) {
+        for (let j = 0; j < currentShape.template.length; j++) {
+            if (currentShape.template[i][j] === 0) {
+                continue;
+            }
+            ctx.drawImage(
+                image,
+                currentShape.imageX,
+                currentShape.imageY,
+                imageSquareSize,
+                imageSquareSize,
+                Math.trunc(currentShape.x) * size + size * i,
+                Math.trunc(currentShape.y) * size + size * j,
+                size,
+                size
+            );
+        }
+    }
+};
+
+const drawSquares = () => {
+
+}
+
+const drawNextShape = () => {
+
+}
+
 const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
@@ -152,5 +183,6 @@ const resetVars = () => {
     gameMap = initialTwoDArr;
 };
 
+resetVars();
 gameLoop();
 
