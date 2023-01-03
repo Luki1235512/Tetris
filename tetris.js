@@ -326,6 +326,12 @@ let drawScore = () => {
     sctx.fillText(score, 10, 50);
 }
 
+let drawGameOver = () => {
+    ctx.font = "64px Poppins";
+    ctx.fillStyle = "black";
+    ctx.fillText("Game Over!", 30, canvas.height / 2);
+}
+
 const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
