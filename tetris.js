@@ -107,7 +107,6 @@ class Tetris {
                 this.template[last - offset][first] = top; //left = top
             }
         }
-
         for (let i = 0; i < this.template.length; i++) {
             for (let j = 0; j < this.template.length; j++) {
                 if (this.template[i][j] === 0) {
@@ -119,12 +118,8 @@ class Tetris {
                     this.template = tempTemplate;
                     return false;
                 }
-                if (gameMap[realY][realX - 1].imageX !== -1) {
-                    return false;
-                }
             }
         }
-
     }
 }
 
@@ -194,6 +189,28 @@ const gameLoop = () => {
     setInterval(draw, 1000 / framePerSecond);
 };
 
+let deleteCompleteRows = () => {
+    for (let i = 0; i < gameMap.length; i++) {
+        let t = gameMap[i];
+        let isComplete = true;
+        for (let j = 0; j < t.length; j++) {
+            if (t[j].imageX === -1) {
+                isComplete = false;
+            }
+        }
+        if (isComplete) {
+            for (let j = i; j > 0; j--) {
+                gameMap[j] = gameMap[j - 1];
+            }
+            let temp = [];
+            for (let j = 0; j < squareCountX; j++) {
+                temp.push({imageX: -1, imageY: -1});
+            }
+            gameMap[0] = temp;
+        }
+    }
+}
+
 const update = () => {
     if (gameOver) {
         return;
@@ -212,7 +229,7 @@ const update = () => {
             }
         }
 
-        // deleteCompleteRows();
+        deleteCompleteRows();
         currentShape = nextShape;
         nextShape = getRandomShape();
 
