@@ -188,7 +188,7 @@ let nextShape;
 let score;
 let initialTwoDArr;
 
-const whiteLineThickness = 4;
+const BoardLineThickness = 4;
 
 const gameLoop = () => {
     setInterval(update, 1000 / gameSpeed);
@@ -253,13 +253,13 @@ const drawRect = (x, y, width, height, color) => {
 };
 
 const drawBackground = () => {
-    drawRect(0, 0, canvas.width, canvas.height, "#bca0dc");
+    drawRect(0, 0, canvas.width, canvas.height, "#111112");
     for (let i = 0; i < squareCountX + 1; i++) {
-        drawRect(size * i - whiteLineThickness, 0, whiteLineThickness, canvas.height, "white");
+        drawRect(size * i - BoardLineThickness, 0, BoardLineThickness, canvas.height, "black");
     }
 
     for (let i = 0; i < squareCountY + 1; i++) {
-        drawRect(0, size * i - whiteLineThickness, canvas.width, whiteLineThickness, "white");
+        drawRect(0, size * i - BoardLineThickness, canvas.width, BoardLineThickness, "black");
     }
 };
 
@@ -297,7 +297,7 @@ const drawSquares = () => {
 }
 
 const drawNextShape = () => {
-    nctx.fillStyle = "#bca0dc";
+    nctx.fillStyle = "#111112";
     nctx.fillRect(0, 0, nextShapeCanvas.width, nextShapeCanvas.height);
     for (let i = 0; i < nextShape.template.length; i++) {
         for (let j = 0; j < nextShape.template.length; j++) {
@@ -310,7 +310,7 @@ const drawNextShape = () => {
                 nextShape.imageY,
                 imageSquareSize,
                 imageSquareSize,
-                size * i,
+                size * i + size,
                 size * j + size,
                 size,
                 size
@@ -322,13 +322,13 @@ const drawNextShape = () => {
 let drawScore = () => {
     sctx.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height);
     sctx.font = "64px Poppins";
-    sctx.fillStyle = "black";
+    sctx.fillStyle = "white";
     sctx.fillText(score, 10, 50);
 }
 
 let drawGameOver = () => {
     ctx.font = "64px Poppins";
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.fillText("Game Over!", 30, canvas.height / 2);
 }
 
